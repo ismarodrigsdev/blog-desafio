@@ -106,26 +106,26 @@ const getPostById = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-  const { id } = req.params;
   try {
+    const postId = req.params.id;
     const user = req.user;
 
-    const post = await Post.findById(id);
+    const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json({ msg: 'Post não encontrado' });
+      return res.status(404).json({ error: 'Post não encontrado' });
     }
 
-    // Verifica se o usuário é o autor da postagem
-    if (post.author.id !== user.user_id) {
-      return res.status(401).json({ msg: 'Esse Post não pertence ao seu usuario' });
+    // Verifica se o usuário é o autor do post
+    if (post.author._id.toString() !== user.user_id) {
+      return res.status(401).json({ error: 'Só é possivel deletar posts criados por si mesmo' });
     }
 
-    // Remove a postagem
-    await post.remove();
+    // Deleta o post
+    await post.deleteOne();
 
-    res.json({ msg: 'Post deletado com sucesso!' });
-  } catch (err) {
-    console.error(err.message);
+    res.json({ message: 'Post deletado com sucesso' });
+  } catch (error) {
+    console.error(error);
     res.status(500).send('Server Error');
   }
 };
