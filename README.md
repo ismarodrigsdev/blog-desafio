@@ -1,4 +1,3 @@
-
 # Blog API
 
 This is a Node.js API for a simple blog application, built with Express and MongoDB. It includes endpoints for user authentication and CRUD operations on blog posts.
@@ -52,11 +51,3 @@ Authentication is required for certain endpoints (marked above). To authenticate
 </code></div></div></pre>
 
 The JWT should be obtained by sending a POST request to the `/login` endpoint with valid user credentials. The response will include a JWT token, which should be stored on the client-side and included in subsequent requests to authenticated endpoints.
-
-## Contributing
-
-If you find a bug or would like to suggest a new feature, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
